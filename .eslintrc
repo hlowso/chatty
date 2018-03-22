@@ -19,5 +19,8 @@
   "plugins": [
     "react"
   ],
-  "extends": ["eslint:recommended", "plugin:react/recommended"]
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "syntax_map": {
+    "JavaScript (Babel)": "javascript",
+  }
 }
