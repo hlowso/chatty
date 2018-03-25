@@ -26,6 +26,8 @@ A simple SPA chatroom.
 
 ### Screenshots
 
+!["kittens1"]()
+!["kittens2"]()
 !["Start"](https://github.com/hlowso/chatty/blob/master/docs/Screen%20Shot%202018-03-25%20at%2012.17.00%20PM.png?raw=true)
 !["Half"](https://github.com/hlowso/chatty/blob/master/docs/Screen%20Shot%202018-03-25%20at%2012.17.39%20PM.png?raw=true)
 !["Mick"](https://github.com/hlowso/chatty/blob/master/docs/Screen%20Shot%202018-03-25%20at%2012.18.40%20PM.png?raw=true)
