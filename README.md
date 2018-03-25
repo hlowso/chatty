@@ -26,8 +26,8 @@ A simple SPA chatroom. Users can send messages with embedded image urls to displ
 
 ### Screenshots
 
-!["kittens1"]()
-!["kittens2"]()
+!["kittens1"](https://github.com/hlowso/chatty/blob/master/docs/Screen%20Shot%202018-03-25%20at%2012.50.47%20PM.png?raw=true)
+!["kittens2"](https://github.com/hlowso/chatty/blob/master/docs/Screen%20Shot%202018-03-25%20at%2012.50.54%20PM.png?raw=true)
 !["Start"](https://github.com/hlowso/chatty/blob/master/docs/Screen%20Shot%202018-03-25%20at%2012.17.00%20PM.png?raw=true)
 !["Half"](https://github.com/hlowso/chatty/blob/master/docs/Screen%20Shot%202018-03-25%20at%2012.17.39%20PM.png?raw=true)
 !["Mick"](https://github.com/hlowso/chatty/blob/master/docs/Screen%20Shot%202018-03-25%20at%2012.18.40%20PM.png?raw=true)
