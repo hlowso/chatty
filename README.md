@@ -2,7 +2,7 @@
 
 ### Overview
 
-A simple SPA chatroom.
+A simple SPA chatroom. Users can send messages with embedded image urls to display them to the chatroom.
 
 ### Getting Started
 
