@@ -2,19 +2,16 @@ const express = require("express");
 const WebSocket = require("ws");
 const SocketServer = WebSocket.Server;
 const uuid = require("uuid");
+const getRandomColor = require("randomcolor");
 
-// Set the port to 3001
 const PORT = 3001;
 
-// Create a new express server
 const server = express()
-  // Make the express server serve static assets (html, javascript, css) from the /public folder
   .use(express.static("public"))
   .listen(PORT, "0.0.0.0", "localhost", () =>
     console.log(`Listening on ${PORT}`)
   );
 
-// Create the WebSockets server
 const wss = new SocketServer({ server });
 wss.broadcast = message => {
   wss.clients.forEach(client => {
@@ -24,47 +21,60 @@ wss.broadcast = message => {
   });
 };
 const clients = [];
-const users = {};
+const users = [];
+const getUser = id => {
+  return users.find(user => user.ws_id === id);
+};
+const removeUser = id => {
+  let index;
+  users.find((user, i) => {
+    index = i;
+    return user.ws_id === id;
+  });
+  users.splice(index, 1);
+};
 
-// Set up a callback that will run when a client connects to the server
-// When a client connects they are assigned a socket, represented by
-// the ws parameter in the callback.
 wss.on("connection", ws => {
   console.log("Client connected");
   ws.id = uuid();
+  const user = {
+    ws_id: ws.id,
+    name: "Anonymous",
+    color: getRandomColor({ luminosity: "dark" })
+  };
+
   clients.push(ws);
-  users[ws.id] = "Anonymous";
+  users.push(user);
 
   ws.on("message", message_string => {
     const message = JSON.parse(message_string);
+
+    console.log(users);
 
     message.id = uuid();
     switch (message.type) {
       case "postMessage":
         message.type = "incomingMessage";
+        message.username_color = getUser(ws.id).color;
         break;
       case "postNotification":
         message.type = "incomingNotification";
         switch (message.action) {
           case "changeUsername":
             const words = message.content.split(" ");
-            users[ws.id] = words[words.length - 1];
+            const user = getUser(ws.id);
+            user.name = words[words.length - 1];
             message.action = null;
             break;
           case "updateCount":
             message.args = [clients.length];
             break;
-          // case "decrement":
-          //   message.action = "updateCount";
-          //   message.args = [clients.length - 1];
-          //   break;
         }
         break;
     }
     wss.broadcast(message);
   });
 
-  // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on("close", () => {
     let index;
     clients.find((array_ws, i) => {
@@ -75,13 +85,12 @@ wss.on("connection", ws => {
 
     const message = {
       type: "incomingNotification",
-      content: `${users[ws.id]} left the chatroom`,
+      content: `${getUser(ws.id).name} left the chatroom`,
       action: "updateCount",
       args: [clients.length]
     };
-
+    removeUser(ws.id);
     wss.broadcast(message);
-    delete users[ws.id];
 
     console.log("Client disconnected");
   });

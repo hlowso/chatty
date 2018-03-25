@@ -1,23 +1,26 @@
-import React, {Component} from 'react';
-import Message            from './Message.jsx';
-import Notification       from './Notification.jsx'
-import uuid               from 'uuid-v4';
+// jshint ignore: start
 
-function MessageList({messages}) {
-	return (	
-		<section className>
-			{messages.map(
-				function(message_obj) {
-					let key = uuid();
-					if(message_obj.type !== 'incomingNotification') {
-						return (<Message key={key} username={message_obj.username} message={message_obj.content} />);
-					}
-					return <Notification key={key} content={message_obj.content} />
-				}
-			)}
+import React, { Component } from "react";
+import Message from "./Message.jsx";
+import uuid from "uuid-v4";
+
+const MessageList = ({ messages }) => {
+	return (
+		<section>
+			{messages.map(message_obj => {
+				let key = uuid();
+				return (
+					<Message
+						key={key}
+						type={message_obj.type}
+						username={message_obj.username}
+						username_color={message_obj.username_color}
+						content={message_obj.content}
+					/>
+				);
+			})}
 		</section>
 	);
-}
-
+};
 
 export default MessageList;
